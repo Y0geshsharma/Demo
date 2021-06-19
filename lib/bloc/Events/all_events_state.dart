@@ -33,3 +33,34 @@ class AllEventsStateLoadFailure extends AllEventsState {
   @override
   List<Object> get props => [errorMessage];
 }
+
+class SimilarEventsStateInitial extends AllEventsState {
+  @override
+  List<Object> get props => [];
+}
+
+class SimilarEventsStateLoadSuccess extends AllEventsState {
+  final List<AllEvents> similarEvents;
+
+  SimilarEventsStateLoadSuccess({this.similarEvents});
+
+  @override
+  List<Object> get props => [similarEvents];
+
+  @override
+  String toString() => 'AllEventsStateLoadSuccess {AllEvents: $similarEvents }';
+}
+
+class SimilarEventsStateLoadInProgress extends AllEventsState {
+  @override
+  List<Object> get props => [];
+}
+
+class SimilarEventsStateLoadFailure extends AllEventsState {
+  SimilarEventsStateLoadFailure({this.errorMessage = ''});
+
+  final String errorMessage;
+
+  @override
+  List<Object> get props => [errorMessage];
+}

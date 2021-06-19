@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class EventDetailScreen extends StatefulWidget {
-  EventDetailScreen({this.id});
-  final int id;
+  EventDetailScreen();
+
   @override
   _EventDetailScreenState createState() => _EventDetailScreenState();
 }

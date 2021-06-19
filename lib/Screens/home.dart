@@ -45,7 +45,15 @@ class _HomeState extends State<Home> {
             itemCount: eventList.length,
             itemBuilder: (BuildContext context, int index) {
               return Card(
-                child: Text(eventList[index].name),
+                child: InkWell(
+                  child: Text(eventList[index].name),
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/second', arguments: {
+                      'id': eventList[index].id,
+                      'catagory': eventList[index].sport
+                    });
+                  },
+                ),
               );
             },
           ),

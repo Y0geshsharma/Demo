@@ -8,3 +8,10 @@ class AllEventLoaded extends AllEvent {
   @override
   List<Object> get props => [];
 }
+
+class SimilarEventLoaded extends AllEvent {
+  SimilarEventLoaded();
+
+  @override
+  List<Object> get props => [];
+}

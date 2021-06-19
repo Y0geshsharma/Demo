@@ -22,7 +22,7 @@ import 'package:yogesh_sharma/bloc/Purchase/purchase_event.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
-    final args = settings.arguments;
+    final Map<String, dynamic> args = settings.arguments;
 
     switch (settings.name) {
       case '/':
@@ -42,45 +42,56 @@ class RouteGenerator {
           ),
         );
       case '/eventDetails':
-        if (args is int) {
+        if (args.isNotEmpty && args['id'] && args['catagory']) {
           return MaterialPageRoute(
-            builder: (_) => BlocProvider<EventDetailsBloc>(
-              create: (_) => EventDetailsBloc(
-                id: args,
-                eventDetailsService: EventDetailsService(),
-              )..add(
-                  EventDetailsLoaded(),
+            builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider<EventDetailsBloc>(
+                  create: (_) => EventDetailsBloc(
+                    id: args['id'],
+                    eventDetailsService: EventDetailsService(),
+                  )..add(
+                      EventDetailsLoaded(),
+                    ),
                 ),
-              child: EventDetailScreen(
-                id: args,
-              ),
+                BlocProvider<AllEventBloc>(
+                  create: (_) => AllEventBloc(
+                      alleventService: AllEventService(),
+                      catagory: args['catagory'])
+                    ..add(
+                      SimilarEventLoaded(),
+                    ),
+                ),
+              ],
+              child: EventDetailScreen(),
             ),
           );
         }
         return _errorRoute();
       case '/checkout':
-        if (args is int) {
+        if (args.isNotEmpty && args['id'] is int) {
           return MaterialPageRoute(
             builder: (_) => BlocProvider<CheckoutBloc>(
               create: (_) => CheckoutBloc(
-                id: args,
+                id: args['id'],
                 checkoutService: CheckoutService(),
               )..add(
                   CheckoutEventLoaded(),
                 ),
               child: CheckOutScreen(
-                id: args,
+                id: args['id'],
               ),
             ),
           );
         }
         return _errorRoute();
       case '/purchase':
-        if (args is CheckOut) {
+        if (args.isNotEmpty && args['checkout'] is CheckOut) {
           return MaterialPageRoute(
             builder: (_) => BlocProvider<PurchaseBloc>(
               create: (_) => PurchaseBloc(
                 purchaseService: PurchaseService(),
+                body: args['checkout'],
               )..add(
                   PurchaseEventLoaded(),
                 ),
