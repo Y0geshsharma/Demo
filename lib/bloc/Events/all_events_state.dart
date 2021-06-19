@@ -14,7 +14,7 @@ class AllEventsStateLoadSuccess extends AllEventsState {
   AllEventsStateLoadSuccess({this.allEvents});
 
   @override
-  List<Object> get props => [AllEvents];
+  List<Object> get props => [allEvents];
 
   @override
   String toString() => 'AllEventsStateLoadSuccess {AllEvents: $allEvents }';

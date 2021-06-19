@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yogesh_sharma/Models/Payment/check_out.dart';
+import 'package:yogesh_sharma/Screens/check_out_screen.dart';
 import 'package:yogesh_sharma/Screens/event_detail_screen.dart';
 import 'package:yogesh_sharma/Screens/home.dart';
+import 'package:yogesh_sharma/Screens/purchase_screen.dart';
 import 'package:yogesh_sharma/Screens/splash_screen.dart';
 import 'package:yogesh_sharma/Services/Events/all_events_service.dart';
+import 'package:yogesh_sharma/Services/Events/event_details_service.dart';
+import 'package:yogesh_sharma/Services/Payment/checkout.dart';
+import 'package:yogesh_sharma/Services/Payment/payment.dart';
+import 'package:yogesh_sharma/bloc/Checkout/checkout_bloc.dart';
+import 'package:yogesh_sharma/bloc/Checkout/checkout_event.dart';
+import 'package:yogesh_sharma/bloc/EventDetails/details_bloc.dart';
+import 'package:yogesh_sharma/bloc/EventDetails/details_event.dart';
 import 'package:yogesh_sharma/bloc/Events/all_event_events.dart';
 import 'package:yogesh_sharma/bloc/Events/all_events_bloc.dart';
+import 'package:yogesh_sharma/bloc/Purchase/purchase_bloc.dart';
+import 'package:yogesh_sharma/bloc/Purchase/purchase_event.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -32,8 +44,47 @@ class RouteGenerator {
       case '/eventDetails':
         if (args is int) {
           return MaterialPageRoute(
-            builder: (_) => EventDetailScreen(
-              id: args,
+            builder: (_) => BlocProvider<EventDetailsBloc>(
+              create: (_) => EventDetailsBloc(
+                id: args,
+                eventDetailsService: EventDetailsService(),
+              )..add(
+                  EventDetailsLoaded(),
+                ),
+              child: EventDetailScreen(
+                id: args,
+              ),
+            ),
+          );
+        }
+        return _errorRoute();
+      case '/checkout':
+        if (args is int) {
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider<CheckoutBloc>(
+              create: (_) => CheckoutBloc(
+                id: args,
+                checkoutService: CheckoutService(),
+              )..add(
+                  CheckoutEventLoaded(),
+                ),
+              child: CheckOutScreen(
+                id: args,
+              ),
+            ),
+          );
+        }
+        return _errorRoute();
+      case '/purchase':
+        if (args is CheckOut) {
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider<PurchaseBloc>(
+              create: (_) => PurchaseBloc(
+                purchaseService: PurchaseService(),
+              )..add(
+                  PurchaseEventLoaded(),
+                ),
+              child: PurchaseScreen(),
             ),
           );
         }

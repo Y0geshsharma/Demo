@@ -15,7 +15,7 @@ class EventDetailsStateLoadSuccess extends EventDetailsState {
   EventDetailsStateLoadSuccess({this.eventDetails, this.id});
 
   @override
-  List<Object> get props => [EventDetails, int];
+  List<Object> get props => [eventDetails, id];
 
   @override
   String toString() =>

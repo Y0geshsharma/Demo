@@ -2,23 +2,23 @@ import 'package:http/http.dart' as http;
 import 'package:yogesh_sharma/Constants/endpoints.dart';
 import 'dart:convert' as convert;
 
-import 'package:yogesh_sharma/Models/Events/event_details.dart';
+import 'package:yogesh_sharma/Models/Payment/check_out.dart';
 
-class EventDetailsService {
-  Future getDeatils(int id) async {
+class CheckoutService {
+  Future getCheckoutDetails(int id) async {
     Map<String, dynamic> collection;
-    EventDetails details;
+    CheckOut checkOutDetails;
     var response = await http.Client().get(
-      Uri.parse('$EVENT_DETAILS/$id'),
+      Uri.parse('$CHECKOUT/$id'),
       headers: header,
     );
     if (response.statusCode == 200) {
       collection = convert.jsonDecode(response.body);
-      details = EventDetails.fromJson(collection);
+      checkOutDetails = CheckOut.fromJson(collection);
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
 
-    return details;
+    return checkOutDetails;
   }
 }
