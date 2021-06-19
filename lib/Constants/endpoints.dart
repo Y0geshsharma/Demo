@@ -1,4 +1,5 @@
-const String ALL_EVENTS ='https://api.sheety.co/bdcbafbc1f4197dda178b9e69f6ccee9/techAlchemyDeveloperTest1/allEvents';
+const String ALL_EVENTS =
+    'https://api.sheety.co/bdcbafbc1f4197dda178b9e69f6ccee9/techAlchemyDeveloperTest1/allEvents';
 const String PURCHASE =
     'https://api.sheety.co/bdcbafbc1f4197dda178b9e69f6ccee9/techAlchemyDeveloperTest1/purchase';
 const String EVENT_DETAILS =

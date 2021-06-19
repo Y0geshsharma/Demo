@@ -11,7 +11,7 @@ class AllEventBloc extends Bloc<AllEvent, AllEventsState> {
   @override
   Stream<AllEventsState> mapEventToState(AllEvent event) async* {
     if (event is AllEventLoaded) {
-      yield*  _mapLoadedToState(event);
+      yield* _mapLoadedToState(event);
     }
   }
 
