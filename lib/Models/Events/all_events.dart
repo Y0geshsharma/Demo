@@ -1,4 +1,6 @@
-class AllEvents {
+import 'package:equatable/equatable.dart';
+
+class AllEvents extends Equatable {
   String name;
   String dateTime;
   String bookBy;
@@ -65,4 +67,23 @@ class AllEvents {
     data['id'] = this.id;
     return data;
   }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [
+        name,
+        dateTime,
+        bookBy,
+        ticketsSold,
+        maxTickets,
+        friendsAttending,
+        price,
+        isPartnered,
+        sport,
+        totalPrize,
+        location,
+        isRecommended,
+        mainImage,
+        id,
+      ];
 }

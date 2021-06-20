@@ -1,4 +1,6 @@
-class Purchase {
+import 'package:equatable/equatable.dart';
+
+class Purchase extends Equatable {
   String dateTime;
   int id;
 
@@ -15,4 +17,7 @@ class Purchase {
     data['id'] = this.id;
     return data;
   }
+
+  @override
+  List<Object> get props => [dateTime, id];
 }

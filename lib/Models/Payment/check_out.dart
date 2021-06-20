@@ -1,4 +1,6 @@
-class CheckOut {
+import 'package:equatable/equatable.dart';
+
+class CheckOut extends Equatable {
   String name;
   String dateTime;
   int price;
@@ -45,4 +47,18 @@ class CheckOut {
     data['id'] = this.id;
     return data;
   }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [
+        name,
+        dateTime,
+        price,
+        isPrivate,
+        location,
+        gameLength,
+        paymentMethodUnsupported,
+        mainImage,
+        id,
+      ];
 }
