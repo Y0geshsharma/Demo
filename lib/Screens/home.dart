@@ -16,18 +16,15 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: BlocConsumer<AllEventBloc, AllEventsState>(
-        listener: (context, state) {
-          if (state is AllEventsStateLoadInProgress ||
+      body: BlocBuilder<AllEventBloc, AllEventsState>(
+        builder: (context, state) {
+        if (state is AllEventsStateLoadInProgress ||
               state is AllEventsStateInitial) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
-          return SizedBox();
-        },
-        builder: (context, state) {
-          if (state is AllEventsStateLoadSuccess) {
+           if (state is AllEventsStateLoadSuccess) {
             return homeScreen(context, state.allEvents);
           }
           return SizedBox();
