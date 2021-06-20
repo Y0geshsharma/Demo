@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yogesh_sharma/Models/Events/all_events.dart';
@@ -15,16 +16,16 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: homeAppBar(context),
       body: BlocBuilder<AllEventBloc, AllEventsState>(
         builder: (context, state) {
-        if (state is AllEventsStateLoadInProgress ||
+          if (state is AllEventsStateLoadInProgress ||
               state is AllEventsStateInitial) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
-           if (state is AllEventsStateLoadSuccess) {
+          if (state is AllEventsStateLoadSuccess) {
             return homeScreen(context, state.allEvents);
           }
           return SizedBox();
@@ -56,6 +57,19 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
+    );
+  }
+
+  AppBar homeAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 1,
+      title: Scaffold(
+          body: Column(
+        children: [
+          Text('Welcome'),
+          TextField(decoration:InputDecoration(prefixIcon:Icon(Icons.search) ,suffixIcon:Icon(Icons.settings_input_composite_outlined ) ))
+        ],
+      )),
     );
   }
 }
