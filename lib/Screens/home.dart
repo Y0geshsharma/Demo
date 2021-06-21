@@ -39,21 +39,25 @@ class _HomeState extends State<Home> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ListView.builder(
-            itemCount: eventList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                child: InkWell(
-                  child: Text(eventList[index].name),
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/second', arguments: {
-                      'id': eventList[index].id,
-                      'catagory': eventList[index].sport
-                    });
-                  },
-                ),
-              );
-            },
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+              itemCount: eventList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  child: InkWell(
+                    child: Text(eventList[index].name),
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/second', arguments: {
+                        'id': eventList[index].id,
+                        'catagory': eventList[index].sport
+                      });
+                    },
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -69,18 +73,22 @@ class _HomeState extends State<Home> {
         ),
       ),
       title: Scaffold(
-        body: Column(
-          children: [
-            Text('Welcome'),
-            TextField(
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                suffixIcon: Icon(
-                  Icons.settings_input_composite_outlined,
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+        height: 300,
+          child: Column(
+            children: [
+              Text('Welcome'),
+              TextField(
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  suffixIcon: Icon(
+                    Icons.settings_input_composite_outlined,
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
       actions: [

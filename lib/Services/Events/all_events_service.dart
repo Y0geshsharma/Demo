@@ -14,12 +14,12 @@ class AllEventService {
     );
     if (response.statusCode == 200) {
       collection = convert.jsonDecode(response.body);
-      events = collection['allEvents']
-          .map((json) => AllEvents.fromJson(json))
-          .toList();
+    final  allEvents = collection['allEvents'];
+         events =  allEvents.map<AllEvents>(( json) => AllEvents.fromJson(json)).toList();
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
+    print(events.runtimeType);
 
     return events;
   }
@@ -34,7 +34,7 @@ class AllEventService {
     if (response.statusCode == 200) {
       collection = convert.jsonDecode(response.body);
       events = collection['allEvents']
-          .map((json) => AllEvents.fromJson(json))
+          .map<AllEvents>((json) => AllEvents.fromJson(json))
           .toList();
     } else {
       print('Request failed with status: ${response.statusCode}.');
