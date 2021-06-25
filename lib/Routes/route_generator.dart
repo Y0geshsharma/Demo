@@ -42,7 +42,7 @@ class RouteGenerator {
           ),
         );
       case '/eventDetails':
-        if (args.isNotEmpty && args['id'] && args['catagory']) {
+        if (args.isNotEmpty && args['id'] is int && args['catagory'] is String) {
           return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(
               providers: [

@@ -39,7 +39,7 @@ class AllEvents extends Equatable {
     ticketsSold = json['ticketsSold'];
     maxTickets = json['maxTickets'];
     friendsAttending = json['friendsAttending'];
-    price = double.tryParse(json['price'].toString())??0.0;
+    price = double.tryParse(json['price'].toString()) ?? 0.0;
     isPartnered = json['isPartnered'];
     sport = json['sport'];
     totalPrize = json['totalPrize'];

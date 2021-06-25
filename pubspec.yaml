@@ -31,7 +31,8 @@ dependencies:
   http: ^0.13.3
   flutter_bloc: ^7.0.1
   equatable: ^1.2.0
-  badges: ^2.0.1
+  share: ^2.0.4
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +52,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - launch_image.png
+    - img_master.png
+    - img_master.png
+    - img_master.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
