@@ -7,7 +7,7 @@ class EventDetails extends Equatable {
   int ticketsSold;
   int maxTickets;
   int friendsAttending;
-  int price;
+  double price;
   bool isPartnered;
   String sport;
   int totalPrize;
@@ -47,7 +47,7 @@ class EventDetails extends Equatable {
     ticketsSold = json['ticketsSold'];
     maxTickets = json['maxTickets'];
     friendsAttending = json['friendsAttending'];
-    price = json['price'];
+    price = double.tryParse(json['price'].toString()) ?? 0.0;
     isPartnered = json['isPartnered'];
     sport = json['sport'];
     totalPrize = json['totalPrize'];

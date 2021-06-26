@@ -5,19 +5,18 @@ import 'package:share/share.dart';
 import 'package:yogesh_sharma/global_function.dart';
 
 class BigMatchCard extends StatefulWidget {
-  const BigMatchCard({
-    this.mainImage,
-    this.price,
-    this.isPartnered,
-    this.sport,
-    this.name,
-    this.dateTime,
-    this.totalPrice,
-    this.ticketSold,
-    this.maxTicket,
-    this.location,
-    this.id    
-  });
+  const BigMatchCard(
+      {this.mainImage,
+      this.price,
+      this.isPartnered,
+      this.sport,
+      this.name,
+      this.dateTime,
+      this.totalPrice,
+      this.ticketSold,
+      this.maxTicket,
+      this.location,
+      this.id});
   final String mainImage;
   final double price;
   final bool isPartnered;
@@ -66,7 +65,8 @@ class _BigMatchCardState extends State<BigMatchCard> {
           highlightColor: Colors.transparent,
           onTap: () {
             FocusScope.of(context).unfocus();
-            Navigator.of(context).pushNamed('/eventDetails',arguments: {'id':widget.id,'catagory':widget.sport});
+            Navigator.of(context).pushNamed('/eventDetails',
+                arguments: {'id': widget.id, 'catagory': widget.sport});
           },
           child: SizedBox(
             height: 356.0,

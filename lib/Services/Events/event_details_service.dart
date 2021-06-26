@@ -14,7 +14,7 @@ class EventDetailsService {
     );
     if (response.statusCode == 200) {
       collection = convert.jsonDecode(response.body);
-      details = EventDetails.fromJson(collection);
+      details = EventDetails.fromJson(collection['eventDetail']);
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }

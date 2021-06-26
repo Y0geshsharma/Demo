@@ -10,7 +10,9 @@ class SmallMatchCard extends StatelessWidget {
     this.ticketsSold,
     this.maxTickets,
     this.friendsAttending,
-    this.price, this.sport, this.id,
+    this.price,
+    this.sport,
+    this.id,
   });
   final String coverImage;
   final String name;
@@ -47,7 +49,8 @@ class SmallMatchCard extends StatelessWidget {
           child: InkWell(
             onTap: () {
               FocusScope.of(context).unfocus();
-            Navigator.of(context).pushNamed('/eventDetails',arguments: {'id':id,'catagory':sport});
+              Navigator.of(context).pushNamed('/eventDetails',
+                  arguments: {'id': id, 'catagory': sport});
             },
             highlightColor: Colors.transparent,
             splashColor: Colors.black26,

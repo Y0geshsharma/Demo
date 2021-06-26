@@ -229,6 +229,7 @@ class _HomeState extends State<Home> {
                               price: currentEvent.price,
                               name: currentEvent.name,
                               id: currentEvent.id,
+                              sport: currentEvent.sport,
                             ));
                       }
                       return const SizedBox();
