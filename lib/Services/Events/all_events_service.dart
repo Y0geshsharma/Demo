@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:yogesh_sharma/Constants/endpoints.dart';
 import 'dart:convert' as convert;
 
@@ -28,6 +29,7 @@ class AllEventService {
   Future<List<AllEvents>> getSimilarEvent(String catagory) async {
     Map<String, dynamic> collection;
     List<AllEvents> events;
+    DateFormat parser =  DateFormat('M/dd/yyyy HH:mm:ss');
     var response = await http.Client().get(
       Uri.parse('$ALL_EVENTS/?filter[sport]=$catagory'),
       headers: header,
@@ -42,7 +44,7 @@ class AllEventService {
     }
     events.sort(
       (a, b) {
-        return a.dateTime.compareTo(b.dateTime);
+        return parser.parse(b.dateTime).compareTo(parser.parse(a.dateTime));
       },
     );
     return events;
