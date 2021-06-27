@@ -4,7 +4,9 @@ This  is a a demo project Checking the understanding in flutter.
 ## Description
 In this Project I am using bloc pattern to store the state. I have a service to fetch the data from apis for each type.All the data are displayed as described in the figma.
 ## DEMO
-![](appFlow.gif)
+<p align='center'>
+ <img src="appFlow.gif" width="200" alt="animated" />
+</p>
 
 ## Getting Started
   
