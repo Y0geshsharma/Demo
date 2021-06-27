@@ -1,16 +1,29 @@
-# yogesh_sharma
+# DEMO Project 
 
-A new Flutter project.
-
+This  is a a demo project Checking the understanding in flutter.
+## Description
+In this Project I am using bloc pattern to store the state. I have a service to fetch the data from apis for each type.All the data are displayed as described in the figma.
 ## Getting Started
+  
+### Dependencies 
+* You need to have flutter Installed.
+* You need to have an emulator or An external Device
+### Installing
+* Clone the Repo: 
+  *  ```git clone https://github.com/Y0geshsharma/Demo```
 
-This project is a starting point for a Flutter application.
+### Executing program
 
-A few resources to get you started if this is your first Flutter project:
+*  Go to the Folder
+* Do a Pub get 
+  *  ```flutter pub get```
+* Build the project based on your requirement 
+  *  ``` flutter build apk/ipa ```
+* Run the Apk or ipa: 
+  * ``` flutter run```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Refference
+* [Figma Design](https://www.figma.com/file/GNUmBwk2x8Eq28KyvA4Y0v/Mobile-Dev-Test?node-id=20%3A146)
