@@ -4,6 +4,7 @@ import 'package:share/share.dart';
 import 'package:yogesh_sharma/Components/BigMatchCard.dart';
 import 'package:yogesh_sharma/Components/LoaderPage.dart';
 import 'package:yogesh_sharma/Constants/app_text.dart';
+import 'package:yogesh_sharma/Constants/endpoints.dart';
 import 'package:yogesh_sharma/Models/Events/all_events.dart';
 import 'package:yogesh_sharma/Models/Events/event_details.dart';
 import 'package:yogesh_sharma/bloc/EventDetails/details_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:yogesh_sharma/bloc/EventDetails/details_state.dart';
 import 'package:yogesh_sharma/bloc/Events/all_events_bloc.dart';
 import 'package:yogesh_sharma/bloc/Events/all_events_state.dart';
 import 'package:yogesh_sharma/global_function.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailScreen extends StatefulWidget {
   EventDetailScreen();
@@ -27,8 +29,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          toolbarHeight: 80,
+          backgroundColor: Color(0xFF1A0451).withOpacity(0.4),
+          toolbarHeight: 70,
+          shadowColor: Colors.transparent,
           actions: [
             IconButton(
               icon: Icon(Icons.ios_share),
@@ -209,6 +212,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             elevation: 0.0,
                             primary: Color(0xFF9DA6B1),
                             minimumSize: Size(119.0, 27),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0))),
                             textStyle: TextStyle(fontSize: 12)),
                       )),
                       IconButton(
@@ -292,40 +298,52 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 formatAboutText()[0],
                 style: TextStyle(color: Color(0xFF475464), fontSize: 15),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    '/checkout',
-                    arguments: {
-                      'id': eventDetails.id,
-                      'checkout': {
-                        'purchase': {
-                          'id': eventDetails.id,
-                          'name': eventDetails.name,
-                          'price': eventDetails.price,
-                          'location': eventDetails.location,
-                          'dateTime': eventDetails.dateTime
-                        },
-                      },
-                    },
-                  );
-                },
-                child: Container(
-                  margin: EdgeInsets.only(top: 18, bottom: 15),
-                  width: MediaQuery.of(context).size.width - 40,
-                  height: 50,
-                  decoration: BoxDecoration(
+              Container(
+                clipBehavior: Clip.antiAlias,
+                margin: EdgeInsets.only(top: 18, bottom: 15),
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: Color(0xFF11D0A2),
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 10.0,
+                          color: Color(0x566C809A),
+                          offset: Offset(0, 5)),
+                    ]),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    splashColor: Colors.white,
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        '/checkout',
+                        arguments: {
+                          'id': eventDetails.id,
+                          'checkout': {
+                            'purchase': {
+                              'id': eventDetails.id,
+                              'name': eventDetails.name,
+                              'price': eventDetails.price,
+                              'location': eventDetails.location,
+                              'dateTime': eventDetails.dateTime
+                            },
+                          },
+                        },
+                      );
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 40,
+                      height: 50,
+                      child: Center(
+                          child: Text(
+                        '£${eventDetails.price} - I’M IN!',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.white),
+                      )),
+                    ),
                   ),
-                  child: Center(
-                      child: Text(
-                    '£${eventDetails.price} - I’M IN!',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                        color: Colors.white),
-                  )),
                 ),
               ),
               Padding(
@@ -416,23 +434,34 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                     ),
                   ),
                   Spacer(),
-                  InkWell(
-                    onTap: ()  {
-                    },
-                    child: Container(
-                      height: 38,
-                      width: 119,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Color(0xFF6658D3),
-                        ),
-                        borderRadius: BorderRadius.circular(50),
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Color(0xFF6658D3),
                       ),
-                      child: Center(
-                        child: Text(
-                          'Take me there',
-                          style: TextStyle(
-                            color: Color(0xFF6658D3),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          String googleUrl =
+                              '$GOOGLE_URL${eventDetails.location}';
+                          canLaunch(googleUrl)
+                              .then((value) => {launch(googleUrl)});
+                          //   throw 'Could not open the map.';
+                        },
+                        child: Container(
+                          height: 38,
+                          width: 119,
+                          child: Center(
+                            child: Text(
+                              'Take me there',
+                              style: TextStyle(
+                                color: Color(0xFF6658D3),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -458,13 +487,48 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                     fontWeight: FontWeight.w500,
                     color: Color(0xff475464)),
               ),
-              Text(
-                '''Send us an email at 
-contact@techalchemy.co or call us at 
-+1 991-681-0200''',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+              Container(
+                width: MediaQuery.of(context).size.width - 200,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Send us an email at',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: ()  {
+                        Uri _emailLaunchUri = Uri(
+                          scheme: 'mailto',
+                          path: 'contact@techalchemy.co',
+                          queryParameters: {
+                            'subject': "This%20is%20my%20subject",
+                            'body':
+                                "Hey%20there%20i%20am%20from%20tech%20alclemy"
+                          },
+                        );
+                        launch(_emailLaunchUri.toString());
+                      },
+                      child: Text(
+                        ' contact@techalchemy.co',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF6658D3)),
+                      ),
+                    ),
+                    Text(
+                      ' or call us at +1 991-681-0200',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
+                  ],
                 ),
               ),
               SizedBox(
@@ -515,7 +579,7 @@ contact@techalchemy.co or call us at
                 if (state is SimilarEventsStateInitial ||
                     state is SimilarEventsStateLoadInProgress) {
                   return Center(
-                    child: LoaderPage(),
+                    child: CircularProgressIndicator(),
                   );
                 }
                 if (state is SimilarEventsStateLoadSuccess) {
