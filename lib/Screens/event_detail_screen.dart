@@ -245,8 +245,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   for (int i = 0; i < tagList.length; i++) ...{
                     if (i % 2 != 0) ...{
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        margin: EdgeInsets.symmetric(horizontal: 5),
                         height: 24,
                         decoration: BoxDecoration(
                           color: Color(0xFFFDF7F8),
