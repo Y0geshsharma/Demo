@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share/share.dart';
 import 'package:yogesh_sharma/Components/BigMatchCard.dart';
+import 'package:yogesh_sharma/Components/LoaderPage.dart';
 import 'package:yogesh_sharma/Constants/app_text.dart';
 import 'package:yogesh_sharma/Models/Events/all_events.dart';
 import 'package:yogesh_sharma/Models/Events/event_details.dart';
@@ -42,7 +43,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
           if (state is EventDetailsStateInitial ||
               state is EventDetailsStateLoadInProgress) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: LoaderPage(),
             );
           }
           if (state is EventDetailsStateLoadSuccess) {
@@ -416,7 +417,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   ),
                   Spacer(),
                   InkWell(
-                    onTap: () {},
+                    onTap: ()  {
+                    },
                     child: Container(
                       height: 38,
                       width: 119,
@@ -513,7 +515,7 @@ contact@techalchemy.co or call us at
                 if (state is SimilarEventsStateInitial ||
                     state is SimilarEventsStateLoadInProgress) {
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: LoaderPage(),
                   );
                 }
                 if (state is SimilarEventsStateLoadSuccess) {

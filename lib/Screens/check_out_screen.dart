@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share/share.dart';
 import 'package:yogesh_sharma/Components/DashedRect.dart';
 import 'package:yogesh_sharma/Components/LoaderPage.dart';
+import 'package:yogesh_sharma/Components/purchase_loader.dart';
 import 'package:yogesh_sharma/Models/Payment/check_out.dart';
-import 'package:yogesh_sharma/Models/Payment/purchase.dart';
 import 'package:yogesh_sharma/bloc/Checkout/checkout_bloc.dart';
 import 'package:yogesh_sharma/bloc/Checkout/checkout_state.dart';
 import 'package:yogesh_sharma/bloc/Purchase/purchase_bloc.dart';
@@ -603,9 +603,7 @@ Widget greetingsSheet({
 }) {
   return BlocBuilder<PurchaseBloc, PurchaseState>(builder: (context, state) {
     if (state is PurchaseStateInitial || state is PurchaseStateLoadInProgress) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+      return PurchaseLoader();
     }
     if (state is PurchaseStateLoadSuccess) {
       return Container(

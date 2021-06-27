@@ -33,6 +33,7 @@ dependencies:
   equatable: ^1.2.0
   share: ^2.0.4
   intl: ^0.17.0
+  shimmer_animation: ^2.0.0
 
 dev_dependencies:
   flutter_test:
