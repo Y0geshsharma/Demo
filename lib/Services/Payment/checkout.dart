@@ -14,7 +14,7 @@ class CheckoutService {
     );
     if (response.statusCode == 200) {
       collection = convert.jsonDecode(response.body);
-      checkOutDetails = CheckOut.fromJson(collection);
+      checkOutDetails = CheckOut.fromJson(collection['checkout']);
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }

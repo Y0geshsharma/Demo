@@ -29,7 +29,7 @@ class AllEventService {
   Future<List<AllEvents>> getSimilarEvent(String catagory) async {
     Map<String, dynamic> collection;
     List<AllEvents> events;
-    DateFormat parser =  DateFormat('M/dd/yyyy HH:mm:ss');
+    DateFormat parser = DateFormat('M/dd/yyyy HH:mm:ss');
     var response = await http.Client().get(
       Uri.parse('$ALL_EVENTS/?filter[sport]=$catagory'),
       headers: header,

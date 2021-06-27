@@ -9,7 +9,7 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
       : super(PurchaseStateInitial());
 
   final PurchaseService purchaseService;
-  final CheckOut body;
+  final Map<String, dynamic> body;
 
   @override
   Stream<PurchaseState> mapEventToState(PurchaseEvent event) async* {

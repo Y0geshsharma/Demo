@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yogesh_sharma/Components/BigMatchCard.dart';
+import 'package:yogesh_sharma/Components/LoaderPage.dart';
 import 'package:yogesh_sharma/Components/SmallMatchCard.dart';
 import 'package:yogesh_sharma/Components/bottom_nav.dart';
 import 'package:yogesh_sharma/Models/Events/all_events.dart';
@@ -22,9 +23,7 @@ class _HomeState extends State<Home> {
         builder: (context, state) {
           if (state is AllEventsStateLoadInProgress ||
               state is AllEventsStateInitial) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return LoaderPage();
           }
           if (state is AllEventsStateLoadSuccess) {
             return homeScreen(context, state.allEvents);

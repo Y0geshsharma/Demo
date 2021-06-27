@@ -53,8 +53,8 @@ flutter:
   assets:
     - launch_image.png
     - img_master.png
-    - img_master.png
-    - img_master.png
+    - img_paypal.png
+    - img_visa.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

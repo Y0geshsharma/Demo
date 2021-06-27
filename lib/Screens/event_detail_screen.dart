@@ -19,7 +19,6 @@ class EventDetailScreen extends StatefulWidget {
 }
 
 class _EventDetailScreenState extends State<EventDetailScreen> {
-  final GlobalKey _backgroundImageKey = GlobalKey();
   bool isLiked = false;
 
   @override
@@ -294,7 +293,21 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).pushNamed('/checkout');
+                  Navigator.of(context).pushNamed(
+                    '/checkout',
+                    arguments: {
+                      'id': eventDetails.id,
+                      'checkout': {
+                        'purchase': {
+                          'id': eventDetails.id,
+                          'name': eventDetails.name,
+                          'price': eventDetails.price,
+                          'location': eventDetails.location,
+                          'dateTime': eventDetails.dateTime
+                        },
+                      },
+                    },
+                  );
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 18, bottom: 15),
@@ -486,16 +499,15 @@ contact@techalchemy.co or call us at
                 thickness: 1,
                 color: Color(0xFFE5E4EB),
               ),
-              SizedBox(height:25),
-            Text(
+              SizedBox(height: 25),
+              Text(
                 'SIMILAR EVENTS :',
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                     color: Color(0xff475464)),
               ),
-              SizedBox(height:17),
-
+              SizedBox(height: 17),
               BlocBuilder<AllEventBloc, AllEventsState>(
                   builder: (context, state) {
                 if (state is SimilarEventsStateInitial ||
@@ -535,8 +547,7 @@ contact@techalchemy.co or call us at
 
                 return SizedBox();
               }),
-              SizedBox(height:170),
-
+              SizedBox(height: 170),
             ],
           ),
         ),
