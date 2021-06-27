@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share/share.dart';
 import 'package:yogesh_sharma/Components/BigMatchCard.dart';
@@ -84,12 +87,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              DecoratedBox(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(eventDetails.mainImage))),
-              ),
+              Container(
+                  height: 386,
+                  child: ParallaxImage(imageUrl: eventDetails.mainImage)),
               DecoratedBox(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -501,7 +501,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: ()  {
+                      onTap: () {
                         Uri _emailLaunchUri = Uri(
                           scheme: 'mailto',
                           path: 'contact@techalchemy.co',
@@ -619,5 +619,97 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         ),
       ]),
     );
+  }
+}
+
+class ParallaxImage extends StatelessWidget {
+  ParallaxImage({
+    Key key,
+    @required this.imageUrl,
+  }) : super(key: key);
+
+  final String imageUrl;
+  final GlobalKey _backgroundImageKey = GlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildParallaxBackground(context);
+  }
+
+  Widget _buildParallaxBackground(BuildContext context) {
+    return Flow(
+      delegate: ParallaxFlowDelegate(
+        scrollable: Scrollable.of(context),
+        imgBoxContext: context,
+        backgroundImageKey: _backgroundImageKey,
+      ),
+      children: [
+        Image.network(
+          imageUrl,
+          key: _backgroundImageKey,
+          fit: BoxFit.cover,
+          height: 386.0,
+        ),
+      ],
+    );
+  }
+}
+
+class ParallaxFlowDelegate extends FlowDelegate {
+  ParallaxFlowDelegate({
+    @required this.scrollable,
+    @required this.imgBoxContext,
+    @required this.backgroundImageKey,
+  }) : super(repaint: scrollable.position);
+
+  final ScrollableState scrollable;
+  final BuildContext imgBoxContext;
+  final GlobalKey backgroundImageKey;
+
+  @override
+  BoxConstraints getConstraintsForChild(int i, BoxConstraints constraints) {
+    return BoxConstraints.tightFor(
+      width: constraints.maxWidth,
+    );
+  }
+
+  @override
+  void paintChildren(FlowPaintingContext context) {
+    // Calculate the position of this list item within the viewport.
+    final scrollableBox = scrollable.context.findRenderObject() as RenderBox;
+    final imageBox = imgBoxContext.findRenderObject() as RenderBox;
+    final imageBoxOffset = imageBox.localToGlobal(
+        imageBox.size.centerLeft(Offset.zero),
+        ancestor: scrollableBox);
+
+    // Determine the percent position of this list item within the
+    // scrollable area.
+    final viewportDimension = scrollable.position.viewportDimension;
+    final scrollFraction =
+        (imageBoxOffset.dy / viewportDimension).clamp(-double.infinity, 1.0);
+
+    // Calculate the vertical alignment of the background
+    // based on the scroll percent.
+    final verticalAlignment = Alignment(0.0, scrollFraction * 2 - 1);
+
+    // Convert the background alignment into a pixel offset for
+    // painting purposes.
+    final backgroundSize =
+        (backgroundImageKey.currentContext?.findRenderObject() as RenderBox)
+            .size;
+    final imgBoxSize = context.size;
+    final childRect =
+        verticalAlignment.inscribe(backgroundSize, Offset.zero & imgBoxSize);
+    // Paint the background.
+    context.paintChild(0,
+        transform:
+            Transform.translate(offset: Offset(0.0, childRect.top)).transform);
+  }
+
+  @override
+  bool shouldRepaint(ParallaxFlowDelegate oldDelegate) {
+    return scrollable != oldDelegate.scrollable ||
+        imgBoxContext != oldDelegate.imgBoxContext ||
+        backgroundImageKey != oldDelegate.backgroundImageKey;
   }
 }
